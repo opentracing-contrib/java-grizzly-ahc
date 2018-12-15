@@ -35,6 +35,7 @@
 
         <version.grizzly-http-client>1.15</version.grizzly-http-client>
         <version.opentracing-api>0.31.0</version.opentracing-api>
+        <version.specialagent-maven-plugin>0.0.1-SNAPSHOT</version.specialagent-maven-plugin>
         <version.junit>4.12</version.junit>
         <version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
         <version.maven-failsafe-plugin>2.22.1</version.maven-failsafe-plugin>
@@ -48,6 +49,7 @@
             <artifactId>grizzly-http-client</artifactId>
             <version>${version.grizzly-http-client}</version>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>io.opentracing</groupId>
@@ -83,12 +85,22 @@
             <version>${version.grizzly-framework}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.opentracing.contrib</groupId>
+            <artifactId>opentracing-specialagent</artifactId>
+            <version>${version.specialagent-maven-plugin}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${project.build.directory}/generated-resources</directory>
             </resource>
         </resources>
         <plugins>
@@ -100,6 +112,38 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>tree</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <outputType>tgf</outputType>
+                            <outputFile>${project.build.directory}/generated-resources/dependencies.tgf</outputFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>io.opentracing.contrib</groupId>
+                <artifactId>specialagent-maven-plugin</artifactId>
+                <version>${version.specialagent-maven-plugin}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>fingerprint</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <destFile>${project.build.directory}/generated-resources/fingerprint.bin</destFile>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
