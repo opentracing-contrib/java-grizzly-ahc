@@ -1,5 +1,7 @@
-package io.opentracing.contib.grizzly.ahc;
+package io.opentracing.contrib.specialagent.grizzly.ahc;
 
+import io.opentracing.contrib.grizzly.ahc.AbstractAhcTest;
+import io.opentracing.contrib.specialagent.AgentRunner;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +13,6 @@ import com.ning.http.client.Response;
 import com.ning.http.client.SimpleAsyncHttpClient;
 
 import io.opentracing.Scope;
-import io.opentracing.contrib.specialagent.AgentRunner;
 import io.opentracing.mock.MockTracer;
 
 /**

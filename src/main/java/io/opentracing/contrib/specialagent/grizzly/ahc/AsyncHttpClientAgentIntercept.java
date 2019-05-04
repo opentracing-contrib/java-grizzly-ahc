@@ -13,10 +13,11 @@
  * limitations under the License.
  */
 
-package io.opentracing.contrib.grizzly.ahc;
+package io.opentracing.contrib.specialagent.grizzly.ahc;
 
 import com.ning.http.client.AsyncHttpClientConfig;
 
+import io.opentracing.contrib.grizzly.ahc.TracingRequestFilter;
 import io.opentracing.util.GlobalTracer;
 import net.bytebuddy.asm.Advice;
 

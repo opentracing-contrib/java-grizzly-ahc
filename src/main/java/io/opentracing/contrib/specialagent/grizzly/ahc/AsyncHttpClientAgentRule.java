@@ -13,19 +13,15 @@
  * limitations under the License.
  */
 
-package io.opentracing.contrib.grizzly.ahc;
+package io.opentracing.contrib.specialagent.grizzly.ahc;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
 import java.util.Arrays;
 
 import io.opentracing.contrib.specialagent.AgentRule;
-import io.opentracing.contrib.specialagent.AgentRuleUtil;
 import net.bytebuddy.agent.builder.AgentBuilder;
-import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy;
-import net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy;
 import net.bytebuddy.agent.builder.AgentBuilder.Transformer;
-import net.bytebuddy.agent.builder.AgentBuilder.TypeStrategy;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType.Builder;

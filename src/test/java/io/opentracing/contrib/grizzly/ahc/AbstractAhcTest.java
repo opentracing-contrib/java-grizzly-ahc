@@ -1,4 +1,4 @@
-package io.opentracing.contib.grizzly.ahc;
+package io.opentracing.contrib.grizzly.ahc;
 
 import static org.junit.Assert.*;
 
@@ -16,10 +16,10 @@ import io.opentracing.mock.MockTracer;
 /**
  * @author Jose Montoya
  */
-abstract class AbstractAhcTest {
-	HttpServer httpServer;
+public abstract class AbstractAhcTest {
+	protected HttpServer httpServer;
 
-	void doTest(Response response, MockTracer tracer) throws Exception {
+	protected void doTest(Response response, MockTracer tracer) throws Exception {
 		assertEquals(response.getStatusCode(), 201);
 
 		List<MockSpan> spans = tracer.finishedSpans();
@@ -29,7 +29,7 @@ abstract class AbstractAhcTest {
 		assertEquals(spans.get(0).parentId(), spans.get(1).context().spanId());
 	}
 
-	void setupServer(HttpServer httpServer) {
+	protected void setupServer(HttpServer httpServer) {
 		httpServer.getServerConfiguration().addHttpHandler(
 				new HttpHandler() {
 					@Override
