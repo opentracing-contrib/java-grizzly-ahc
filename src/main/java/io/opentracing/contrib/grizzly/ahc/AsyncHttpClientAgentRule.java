@@ -31,13 +31,11 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType.Builder;
 import net.bytebuddy.utility.JavaModule;
 
-public class AsyncHttpClientAgentRule implements AgentRule {
+public class AsyncHttpClientAgentRule extends AgentRule {
   @Override
-  public Iterable<? extends AgentBuilder> buildAgent(final String agentArgs) throws Exception {
-    return Arrays.asList(new AgentBuilder.Default()
-      .with(RedefinitionStrategy.RETRANSFORMATION)
-      .with(InitializationStrategy.NoOp.INSTANCE)
-      .with(TypeStrategy.Default.REDEFINE).type(hasSuperType(named("com.ning.http.client.AsyncHttpClientConfig$Builder")))
+  public Iterable<? extends AgentBuilder> buildAgent(final AgentBuilder builder) throws Exception {
+    return Arrays.asList(
+     builder.type(hasSuperType(named("com.ning.http.client.AsyncHttpClientConfig$Builder")))
       .transform(new Transformer() {
         @Override
         public Builder<?> transform(final Builder<?> builder, final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module) {
@@ -46,8 +44,8 @@ public class AsyncHttpClientAgentRule implements AgentRule {
   }
 
   @Advice.OnMethodExit
-  public static void exit(final @Advice.This Object thiz) {
-    if (AgentRuleUtil.isEnabled())
+  public static void exit(final @Advice.Origin String origin, final @Advice.This Object thiz) {
+    if (isEnabled(origin))
       AsyncHttpClientAgentIntercept.exit(thiz);
   }
 }

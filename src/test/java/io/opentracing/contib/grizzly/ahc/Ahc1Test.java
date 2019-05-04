@@ -22,7 +22,7 @@ public class Ahc1Test extends AbstractAhcTest {
 
 	@BeforeClass
 	public static void beforeClass() throws Exception {
-		GlobalTracer.register(tracer);
+		GlobalTracer.registerIfAbsent(tracer);
 	}
 
 	@Before

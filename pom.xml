@@ -6,7 +6,7 @@
 
     <groupId>io.opentracing.contrib</groupId>
     <artifactId>opentracing-grizzly-ahc</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
 
     <name>SpecialAgent Rule for Grizzly AsyncHttpClient</name>
     <description>OpenTracing Instrumentation for Grizzly AsyncHttpClient</description>
@@ -34,8 +34,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <version.grizzly-http-client>1.15</version.grizzly-http-client>
-        <version.opentracing-api>0.31.0</version.opentracing-api>
-        <version.specialagent>1.0.1-SNAPSHOT</version.specialagent>
+        <version.opentracing-api>0.32.0</version.opentracing-api>
+        <version.specialagent>1.1.1</version.specialagent>
         <version.bytebuddy>1.9.10</version.bytebuddy>
         <version.junit>4.12</version.junit>
         <version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
