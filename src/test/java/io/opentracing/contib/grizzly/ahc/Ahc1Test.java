@@ -17,8 +17,7 @@ import org.junit.Test;
 /**
  * @author Jose Montoya
  */
-
-public class AhcTest extends AbstractAhcTest {
+public class Ahc1Test extends AbstractAhcTest {
 	protected static final MockTracer tracer = new MockTracer(new ThreadLocalScopeManager());
 
 	@BeforeClass

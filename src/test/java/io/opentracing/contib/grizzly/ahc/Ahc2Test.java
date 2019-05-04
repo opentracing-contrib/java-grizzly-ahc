@@ -1,37 +1,24 @@
 package io.opentracing.contib.grizzly.ahc;
 
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.Response;
-import com.ning.http.client.SimpleAsyncHttpClient;
-import io.opentracing.Scope;
-import io.opentracing.contrib.specialagent.AgentRunner;
-import io.opentracing.mock.MockSpan;
-import io.opentracing.mock.MockTracer;
-import io.opentracing.util.GlobalTracer;
-import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.grizzly.http.server.Request;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
+import com.ning.http.client.AsyncHttpClient;
+import com.ning.http.client.Response;
+import com.ning.http.client.SimpleAsyncHttpClient;
 
-import static org.junit.Assert.assertEquals;
+import io.opentracing.Scope;
+import io.opentracing.contrib.specialagent.AgentRunner;
+import io.opentracing.mock.MockTracer;
 
 /**
  * @author Jose Montoya
  */
 @RunWith(AgentRunner.class)
-@AgentRunner.Config(debug = true, verbose = true)
-public class AhcITest extends AbstractAhcTest {
-
-	@BeforeClass
-	public static void beforeClass(MockTracer tracer) throws Exception {
-		GlobalTracer.register(tracer);
-	}
+public class Ahc2Test extends AbstractAhcTest {
 
 	@Before
 	public void before(MockTracer tracer) throws Exception {
@@ -44,7 +31,7 @@ public class AhcITest extends AbstractAhcTest {
 	}
 
 	@After
-	public void after(MockTracer tracer) throws Exception {
+	public void after() throws Exception {
 		if (httpServer != null) {
 			httpServer.shutdownNow();
 		}

@@ -1,25 +1,25 @@
 package io.opentracing.contib.grizzly.ahc;
 
-import com.ning.http.client.AsyncHttpClient;
-import com.ning.http.client.Response;
-import io.opentracing.Scope;
-import io.opentracing.mock.MockSpan;
-import io.opentracing.mock.MockTracer;
+import static org.junit.Assert.*;
+
+import java.util.List;
+
 import org.glassfish.grizzly.http.server.HttpHandler;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.server.Request;
 
-import java.util.List;
+import com.ning.http.client.Response;
 
-import static org.junit.Assert.assertEquals;
+import io.opentracing.mock.MockSpan;
+import io.opentracing.mock.MockTracer;
 
 /**
  * @author Jose Montoya
  */
-public class AbstractAhcTest {
-	protected HttpServer httpServer;
+abstract class AbstractAhcTest {
+	HttpServer httpServer;
 
-	protected void doTest(Response response, MockTracer tracer) throws Exception {
+	void doTest(Response response, MockTracer tracer) throws Exception {
 		assertEquals(response.getStatusCode(), 201);
 
 		List<MockSpan> spans = tracer.finishedSpans();
@@ -29,7 +29,7 @@ public class AbstractAhcTest {
 		assertEquals(spans.get(0).parentId(), spans.get(1).context().spanId());
 	}
 
-	protected void setupServer(HttpServer httpServer) {
+	void setupServer(HttpServer httpServer) {
 		httpServer.getServerConfiguration().addHttpHandler(
 				new HttpHandler() {
 					@Override
