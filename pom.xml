@@ -68,7 +68,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.bytebuddy>1.9.10</version.bytebuddy>
+		<version.bytebuddy>1.9.13</version.bytebuddy>
 		<version.coveralls-maven-plugin>4.3.0</version.coveralls-maven-plugin>
 		<version.formatter>2.9.0</version.formatter>
 		<version.grizzly-framework>2.3.35</version.grizzly-framework>
@@ -79,7 +79,7 @@
 		<version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
 		<version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
 		<version.opentracing-api>0.32.0</version.opentracing-api>
-		<version.specialagent>1.1.1</version.specialagent>
+		<version.specialagent>1.2.0</version.specialagent>
 	</properties>
 
 	<dependencies>
@@ -177,23 +177,6 @@
 			</plugin>
 			<!--Start special agent plugins-->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.1.1</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>tree</goal>
-						</goals>
-						<phase>generate-resources</phase>
-						<configuration>
-							<outputType>tgf</outputType>
-							<outputFile>${project.build.directory}/generated-resources/dependencies.tgf</outputFile>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>io.opentracing.contrib.specialagent</groupId>
 				<artifactId>agentrule-maven-plugin</artifactId>
 				<version>${version.specialagent}</version>
@@ -202,9 +185,9 @@
 						<goals>
 							<goal>fingerprint</goal>
 						</goals>
-						<phase>generate-resources</phase>
+						<phase>process-classes</phase>
 						<configuration>
-							<destFile>${project.build.directory}/generated-resources/fingerprint.bin</destFile>
+							<name>grizzly-ahc</name>
 						</configuration>
 					</execution>
 				</executions>
