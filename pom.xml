@@ -79,7 +79,6 @@
 		<version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
 		<version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
 		<version.opentracing-api>0.32.0</version.opentracing-api>
-		<version.specialagent>1.2.0</version.specialagent>
 	</properties>
 
 	<dependencies>
@@ -94,12 +93,6 @@
 			<groupId>io.opentracing</groupId>
 			<artifactId>opentracing-util</artifactId>
 			<version>${version.opentracing-api}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.opentracing.contrib.specialagent</groupId>
-			<artifactId>opentracing-specialagent-api</artifactId>
-			<version>${version.specialagent}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -120,7 +113,6 @@
 			<artifactId>grizzly-http-client</artifactId>
 			<version>${version.grizzly-http-client}</version>
 			<scope>provided</scope>
-			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>io.opentracing</groupId>
@@ -129,13 +121,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>io.opentracing.contrib.specialagent</groupId>
-			<artifactId>opentracing-specialagent</artifactId>
-			<version>${version.specialagent}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -173,33 +158,6 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-			<!--Start special agent plugins-->
-			<plugin>
-				<groupId>io.opentracing.contrib.specialagent</groupId>
-				<artifactId>agentrule-maven-plugin</artifactId>
-				<version>${version.specialagent}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>fingerprint</goal>
-						</goals>
-						<phase>process-classes</phase>
-						<configuration>
-							<name>grizzly-ahc</name>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!--End special agent plugins-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>${version.maven-surefire-plugin}</version>
-				<configuration>
-					<trimStackTrace>false</trimStackTrace>
-					<reuseForks>false</reuseForks>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -241,6 +199,7 @@
 			<plugin>
 				<groupId>com.github.ekryd.sortpom</groupId>
 				<artifactId>sortpom-maven-plugin</artifactId>
+				<version>2.10.0</version>
 				<configuration>
 					<createBackupFile>false</createBackupFile>
 					<expandEmptyElements>false</expandEmptyElements>
@@ -266,6 +225,19 @@
 							<goal>verify</goal>
 						</goals>
 						<phase>process-resources</phase>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.2</version>
+				<executions>
+					<execution>
+						<id>test-jar</id>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>

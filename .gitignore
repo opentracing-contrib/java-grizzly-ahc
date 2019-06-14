@@ -1,6 +1,7 @@
 # Build / maven artifacts
 *.class
 target/
+bin/
 pom.xml.versionsBackup
 
 # Mobile Tools for Java (J2ME)
