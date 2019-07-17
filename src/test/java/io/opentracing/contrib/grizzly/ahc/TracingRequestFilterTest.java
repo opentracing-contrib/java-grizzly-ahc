@@ -29,7 +29,7 @@ import org.junit.Test;
 /**
  * @author Jose Montoya
  */
-public class Ahc1Test extends AbstractAhcTest {
+public class TracingRequestFilterTest extends AbstractAhcTest {
 	protected static final MockTracer tracer = new MockTracer(new ThreadLocalScopeManager());
 
 	@BeforeClass
@@ -55,7 +55,7 @@ public class Ahc1Test extends AbstractAhcTest {
 	}
 
 	@Test
-	public void basicAhcTest() throws Throwable {
+	public void testBasicRequest() throws Throwable {
 		AsyncHttpClientConfig config = new AsyncHttpClientConfig.Builder()
 				.addRequestFilter(new TracingRequestFilter())
 				.build();

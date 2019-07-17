@@ -50,10 +50,16 @@ public class TracingRequestFilter implements RequestFilter {
 		Tags.HTTP_METHOD.set(span, request.getMethod());
 		Tags.HTTP_URL.set(span, request.getUrl());
 
-		tracer.inject(span.context(), Format.Builtin.HTTP_HEADERS, new RequestBuilderInjectAdapter(new RequestBuilder(request)));
+		RequestBuilder requestBuilder = new RequestBuilder(ctx.getRequest());
+		RequestBuilderInjectAdapter injectAdapter = new RequestBuilderInjectAdapter(requestBuilder);
+		tracer.inject(span.context(), Format.Builtin.HTTP_HEADERS, injectAdapter);
 
-		return new FilterContext.FilterContextBuilder(ctx)
-				.asyncHandler(new AsyncHandlerWrapper(ctx.getAsyncHandler(), span))
+		FilterContext.FilterContextBuilder injectedContextBuilder = new FilterContext.FilterContextBuilder(ctx);
+		FilterContext<T> injectedContext = injectedContextBuilder.build();
+		injectedContextBuilder.request(injectAdapter.injectedRequest());
+
+		return new FilterContext.FilterContextBuilder(injectedContext)
+				.asyncHandler(new AsyncHandlerWrapper(injectedContext.getAsyncHandler(), span))
 				.build();
 	}
 

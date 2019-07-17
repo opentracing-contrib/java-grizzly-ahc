@@ -16,6 +16,7 @@ package io.opentracing.contrib.grizzly.ahc;
 import java.util.Iterator;
 import java.util.Map;
 
+import com.ning.http.client.Request;
 import com.ning.http.client.RequestBuilderBase;
 
 import io.opentracing.propagation.TextMap;
@@ -38,5 +39,9 @@ public class RequestBuilderInjectAdapter implements TextMap {
 	@Override
 	public void put(String key, String value) {
 		builder.addHeader(key, value);
+	}
+
+	public Request injectedRequest() {
+		return builder.build();
 	}
 }
